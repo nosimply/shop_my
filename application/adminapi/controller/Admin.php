@@ -24,8 +24,7 @@ class Admin extends BaseApi
         }
 
         //分页查询（包含搜索）
-        //$list = \app\common\model\Admin::where($where)->paginate(10);
-        //SELECT t1.*, t2.role_name FROM pyg_admin t1 left join pyg_role t2 on t1.role_id = t2.id where username like '%a%' limit 0, 2;
+       
         $list = \app\common\model\Admin::alias('t1')
             ->join('pyg_role t2', 't1.role_id=t2.id', 'left')
             ->field('t1.*, t2.role_name')

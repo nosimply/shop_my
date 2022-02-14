@@ -23,11 +23,7 @@ class Brand extends BaseApi
             //查询数据
             //SELECT t1.*, t2.cate_name FROM `pyg_brand` t1 left join pyg_category t2 on t1.cate_id = t2.id where cate_id = 72;
             $list = \app\common\model\Brand::where($where)->field('id,name')->select();
-            /*$list = \app\common\model\Brand::alias('t1')
-                ->join(config('database.prefix').'category t2', 't1.cate_id=t2.id', 'left')
-                ->field('t1.*, t2.cate_name')
-                ->where($where)
-                ->select();*/
+            
         }else{
             //分页+搜索列表
             if(isset($params['keyword']) && !empty($params['keyword'])){
@@ -35,8 +31,7 @@ class Brand extends BaseApi
                 $where['t1.name'] = ['like', "%$keyword%"];
             }
             //分页查询数据
-            //SELECT t1.*, t2.cate_name FROM `pyg_brand` t1 left join pyg_category t2 on t1.cate_id = t2.id where name like '%亚%' limit 0,10;
-            //$list = \app\common\model\Brand::where($where)->paginate(10);
+            
             $list = \app\common\model\Brand::alias('t1')
                 ->join('pyg_category t2', 't1.cate_id=t2.id', 'left')
                 ->field('t1.*, t2.cate_name')
